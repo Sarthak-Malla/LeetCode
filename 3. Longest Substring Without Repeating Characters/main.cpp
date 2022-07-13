@@ -1,41 +1,50 @@
 #include<iostream>
 #include<string>
-#include<map>
+#include<vector>
 #include<iterator>
 using namespace std;
 
 int lengthOfLongestSubstring(string s){
-    map<char, int> seen;
 
-    int len = 0;
-    int longest = 0;
+    // To record the characters we have seen
+    vector<char> seen;
+    vector<char>::iterator itr;
 
-    if (s.length() == 1)
-        return 1;
+    // len: current length of unique substring
+    // longest: the longest of all substrings
+    int len = 0, longest = 0;
 
     for (int i = 0; i < s.length(); i++){
-        if (seen.find(s[i]) == seen.end())
-            len++;
-        else{
-            if (i - seen[s[i]] == 1 && i != 1)
-                len--;
-            else 
-                len -= seen[s[i]];
-                if (len < 0)
-                    len = 0;
-        }
+        // Searching for the char in the seen vector.
+        vector<char>::iterator elem = find(seen.begin(), seen.end(), s[i]);
 
+        // If the character is not there we increas the length by 1
+        // else we delete every character that came before the CHAR including itself: In this we decrese the length of the substring by the number of characters deleted.
+        if (elem == seen.end()){
+            len++;
+        } else {
+            int idx = elem - seen.begin();
+            
+            for (int j = 0; j <= idx; j++){
+                seen.erase(seen.begin());
+            }
+
+            len -= idx;
+        }
+        
+        // getting the longest
         if (len > longest)
             longest = len;
-        
-        seen[s[i]] = i;
+
+        // adding to seen
+        seen.push_back(s[i]);
     }
 
     return longest;
 }
 
 int main(){
-    string s = "cxyzjmnopkilbkd";
+    string s = "aab";
 
     int length = lengthOfLongestSubstring(s);
 
