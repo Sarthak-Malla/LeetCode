@@ -6,24 +6,38 @@ using namespace std;
 int minInsertions(string s){
     stack<char> openingBraces;
 
+    int count = 0;
     for (int i = 0; i < s.length(); i++){
-        if (openingBraces.empty() && s[i] == ')')
-            return 0;
-        
-        if (s[i] == '(')
+        if (s[i] == '('){
             openingBraces.push('(');
-        else if (i+1 < s.length() && s[++i] == ')')
+        }
+        
+        if (openingBraces.empty() && s[i] == ')' && i+1 < s.length() && s[i+1] == ')'){
+            count++;
+            i = i+1;
+        } else if (openingBraces.empty() && s[i] == ')'){
+            count += 2;
+        }
+
+        if (!openingBraces.empty() && s[i] == ')' && i+1 < s.length() && s[i+1] == ')'){
             openingBraces.pop();
+            i = i+1;
+        } else if (!openingBraces.empty() && s[i] == ')'){
+            count++;
+            openingBraces.pop();
+        }
     }
 
-    if (openingBraces.empty())
-        return 1;
+    while (!openingBraces.empty()){
+        count += 2;
+        openingBraces.pop();
+    }
 
-    return -1;
+    return count;
 }
 
 int main(){
-    string s = "())(())))";
+    string s = "()()()()()(";
 
     int ans = minInsertions(s);
 
