@@ -5,13 +5,13 @@ using namespace std;
 
 int minInsertions(string s){
     stack<char> openingBraces;
-
+    
     int count = 0;
     for (int i = 0; i < s.length(); i++){
         if (s[i] == '('){
             openingBraces.push('(');
         }
-        
+
         if (openingBraces.empty() && s[i] == ')' && i+1 < s.length() && s[i+1] == ')'){
             count++;
             i = i+1;
@@ -27,7 +27,7 @@ int minInsertions(string s){
             openingBraces.pop();
         }
     }
-
+    
     count += openingBraces.size() * 2;
 
     return count;
