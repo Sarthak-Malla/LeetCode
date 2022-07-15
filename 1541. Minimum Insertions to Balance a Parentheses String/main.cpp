@@ -28,10 +28,7 @@ int minInsertions(string s){
         }
     }
 
-    while (!openingBraces.empty()){
-        count += 2;
-        openingBraces.pop();
-    }
+    count += openingBraces.size() * 2;
 
     return count;
 }
