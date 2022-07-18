@@ -1,26 +1,16 @@
 class Solution:
     
     def reverse(self, x: int) -> int:
-
-        if x not in range(-2**31, (2**31) - 1):
-            return 0
-
-        ans = 0
-        s = str(x)
-        a = ""
-        sign = ""
         
         if (x < 0):
-            sign = s[0]
-            s = s[1:]
-            
-        a = sign + s[::-1]
-        ans = int(a)
+            ans = -1 * int(str(x*-1)[::-1])
+        else:
+            ans = int(str(x)[::-1])
         
-        return ans
+        return ans if ans in range(-2**31, 2**31-1) else 0
 
 if __name__ == "__main__":
-    n = 1534236469
+    n = -123
 
     sol = Solution()
     print(sol.reverse(n))
