@@ -3,16 +3,15 @@
 using namespace std;
 
 bool kLengthApart(vector<int>& nums, int k) {
-    vector<int> index;
+    int counter = k;
     for (int i = 0; i < nums.size(); i++) {
         if (nums[i] == 1) {
-            index.push_back(i);
-        }
-
-        if (index.size() >= 2) {
-            if (index[index.size() - 1] - index[index.size() - 2] <= k) {
+            if (counter < k) {
                 return false;
             }
+            counter = 0;
+        } else {
+            counter++;
         }
     }
 
