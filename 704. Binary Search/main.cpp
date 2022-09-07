@@ -22,6 +22,12 @@ int search(vector<int>& nums, int target) {
         }
     }
 
+    if (target == nums[left])
+        return left;
+    
+    if (target == nums[right])
+        return right;
+
     if (!found)
         return -1;
 
