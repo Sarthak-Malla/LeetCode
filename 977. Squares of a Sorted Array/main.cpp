@@ -4,30 +4,46 @@
 using namespace std;
 
 vector<int> sortedSquares(vector<int>& nums) {
-    vector<int> s;
-    int sq;
-    for (int i = 0; i < nums.size(); i++) { // 0
-        sq = pow(nums[i], 2); // 100
-        if (i == 0) {
-            s.push_back(sq); // 100
-        }
-        int s_size = s.size(); // 1
-        for (int j = 0; j < s_size; j++) { // 0
-            if (i != 0 && (s[j] > sq || sq == s[j])) {
-                s.insert(s.begin() + j, sq);
-                break;
-            } else if (sq > s[s.size() - 1]) {
-                s.push_back(sq);
-            }
+    vector<int> left;
+    vector<int> right;
+    vector<int> ans;
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] < 0)
+            left.insert(left.begin(), nums[i]);
+        else 
+            right.push_back(nums[i]);
+    }
+
+    int l = 0, r = 0, a = 0;
+    while (l < left.size() && r < right.size()) {
+        if (pow(left[l], 2) > pow(right[r], 2) ) {
+            ans.push_back(pow(right[r], 2)); // 0 9 
+            a++; // 1 2
+            r++; // 1 2
+        } else {
+            ans.push_back(pow(left[l], 2));
+            a++;
+            l++;
         }
     }
 
-    return s;
+    while (l < left.size()) {
+        ans.push_back(pow(left[l], 2));
+        a++;
+        l++;
+    }
+    while (r < right.size()) {
+        ans.push_back(pow(right[r], 2));
+        a++;
+        r++;
+    }
+
+    return ans;
 }
 
 int main(){
     vector<int> nums;
-    // nums.push_back(-10);
+    nums.push_back(-10);
     nums.push_back(-1);
     nums.push_back(0);
     nums.push_back(3);
