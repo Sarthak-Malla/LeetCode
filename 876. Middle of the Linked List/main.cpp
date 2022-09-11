@@ -3,23 +3,32 @@
 using namespace std;
 
 ListNode* middleNode(ListNode* head) {
-    int count = 0;
-    ListNode* a = head;
+    ListNode * ptr = head;
+    ListNode * fastptr = head;
     
-    while (a != nullptr) {
-        count++;
-        a = a->next;
+    while (fastptr != nullptr && fastptr->next != nullptr){
+        ptr = ptr->next;
+        fastptr = fastptr->next->next;
     }
+        
+    return ptr;
+    // int count = 0;
+    // ListNode* a = head;
     
-    int ans = ceil(count/2);
-    count = 0;
+    // while (a != nullptr) {
+    //     count++;
+    //     a = a->next;
+    // }
     
-    while (count < ans) {
-        head = head->next;
-        count++;
-    }
+    // int ans = ceil(count/2);
+    // count = 0;
     
-    return head;
+    // while (count < ans) {
+    //     head = head->next;
+    //     count++;
+    // }
+    
+    // return head;
 }
 
 int main(){
