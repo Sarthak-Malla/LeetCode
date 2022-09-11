@@ -3,7 +3,7 @@
 using namespace std;
 
 vector<int> twoSum(vector<int>& numbers, int target) {
-    int left = 0, right = 1;
+    int left = 0, right = numbers.size() - 1;
     vector<int> ans(2);
 
     while (left < right) {
@@ -13,12 +13,9 @@ vector<int> twoSum(vector<int>& numbers, int target) {
 
             return ans;
         } else if (numbers[left] + numbers[right] > target) {
-            left++;
             right--;
-        } else if (right == numbers.size() - 1) {
-            left++;
         } else {
-            right++;
+            left++;
         }
     }
 
@@ -27,15 +24,15 @@ vector<int> twoSum(vector<int>& numbers, int target) {
 
 int main(){
     vector<int> nums;
-    nums.push_back(3);
-    nums.push_back(25);
-    nums.push_back(75);
-    nums.push_back(79);
+    nums.push_back(2);
+    nums.push_back(7);
+    nums.push_back(11);
+    nums.push_back(15);
     nums.push_back(88);
     nums.push_back(150);
     nums.push_back(345);
 
-    int target = 200;
+    int target = 161;
 
     vector<int> ans = twoSum(nums, target);
 
