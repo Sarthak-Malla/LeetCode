@@ -12,16 +12,17 @@ int bagOfTokensScore(vector<int>& tokens, int power) {
         if (power < tokens[left] && score == 0)
             return score;
 
-        do {
+        if (power >= tokens[left]) {
             power -= tokens[left++];
             score++;
-            if (left > right)
-                return score;
-        } while (power >= tokens[left]);
+
+            if (left <= right && power >= tokens[left])
+                continue;
+        }
 
         if (score > max_score)
             max_score = score;
-
+        
         power += tokens[right--];
         score--;
     }
