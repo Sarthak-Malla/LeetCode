@@ -1,29 +1,25 @@
 #include<iostream>
+#include<map>
+#include<iterator>
 using namespace std;
+typedef map<char,int>::iterator iterate;
 
 bool isIn(string s1, string s2) {
-    for (int index = 0; index < s1.length(); index++) {
-        bool found = false;
+    sort(s1.begin(), s1.end());
+    sort(s2.begin(), s2.end());
 
-        for (int i = 0; i < s2.length(); i++) {
-            if (s1[index] == s2[index])
-                found = true;
-                continue;
-            
-            if (!found)
-                return false;
-        }
-    }
-
-    return true;
+    return s1 == s2;
 }
 
 bool checkInclusion(string s1, string s2) {
-    int left = 0, len = s1.length() - 1;
+    int left = 0, n = s1.length();
+    if (n > s2.length())
+        return false;
 
-    while (left < s2.length() - s1.length() + 1) {
-        if (isIn(s1, s2.substr(left, len)))
+    while (left < s2.length() - n + 1) {
+        if (isIn(s1, s2.substr(left, n)))
             return true;
+
         left++;
     }
 
@@ -31,8 +27,8 @@ bool checkInclusion(string s1, string s2) {
 }
 
 int main(){
-    string s1 = "aba";
-    string s2 = "eidbaooo";
+    string s1 = "ab";
+    string s2 = "ab";
 
     cout<<boolalpha<<checkInclusion(s1, s2)<<endl;
 

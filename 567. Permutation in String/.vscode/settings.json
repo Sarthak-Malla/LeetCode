@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "string": "cpp"
+        "string": "cpp",
+        "algorithm": "cpp",
+        "utility": "cpp",
+        "map": "cpp",
+        "memory": "cpp",
+        "unordered_map": "cpp"
     }
 }
