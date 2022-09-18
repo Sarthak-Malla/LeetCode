@@ -5,6 +5,8 @@
         "utility": "cpp",
         "map": "cpp",
         "memory": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "iosfwd": "cpp"
     }
 }
