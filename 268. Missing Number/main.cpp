@@ -4,13 +4,15 @@ using namespace std;
 
 int missingNumber(vector<int>& nums) {
     int ans = 0;
-    for (int i = 0; i < nums.size(); i++) {
-        ans ^= nums[i];
-        ans ^= i;
-    }
-    ans ^= nums.size();
+    int s = nums.size();
 
-    return ans;
+    for (int i = 0; i < s; i++) {
+        ans += nums[i];
+    }
+
+    int sum_to_n = (s*(s+1))/2;
+
+    return sum_to_n - ans;
 }
 
 int main(){
