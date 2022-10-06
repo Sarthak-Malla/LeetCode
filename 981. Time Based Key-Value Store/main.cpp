@@ -1,10 +1,11 @@
 #include<iostream>
-#include<unordered_map>
+#include<map>
 using namespace std;
 
 class TimeMap {
 public:
-    unordered_map<string, unordered_map<int, string> > record;
+    map<string, map<int, string> > record;
+    map<string, map<int, string> >::const_iterator itr;
     TimeMap() {
         
     }
@@ -15,11 +16,9 @@ public:
     
     string get(string key, int timestamp) {
         if (record.find(key) != record.end()) {
-            while (timestamp >= 0) {
-                if (record[key].find(timestamp) != record[key].end())
-                    return record[key][timestamp];
-
-                timestamp--;
+            for (auto itr = record[key].rbegin(); itr != record[key].rend(); itr++) {
+                if (itr->first <= timestamp)
+                    return itr->second;
             }
         }
 
