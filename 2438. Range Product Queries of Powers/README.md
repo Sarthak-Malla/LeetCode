@@ -1,0 +1,1 @@
+# Range Product Queries of Powers
