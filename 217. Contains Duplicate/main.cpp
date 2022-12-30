@@ -1,20 +1,16 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 bool containsDuplicate(vector<int>& nums) {
-    if (nums.size() == 1)
-        return false;
-    
-    sort(nums.begin(), nums.end());
-    
+    unordered_map<int, int> hash;
     for (int i = 0; i < nums.size(); i++) {
-        if (i + 1 < nums.size()) {
-            if (nums[i] == nums[i+1])
-                return true;
-        }
+        if (hash.find(nums[i]) != hash.end())
+            return true;
+
+        hash[nums[i]] = 1;
     }
-    
+
     return false;
 }
 
