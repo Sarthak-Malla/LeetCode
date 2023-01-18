@@ -3,27 +3,18 @@
 using namespace std;
 
 int maxSubArray(vector<int>& nums) {
-    vector<int> sums;
-    int s = 0;
-    for (int i = 0; i < nums.size(); i++) {
-        s += nums[i];
-        sums.push_back(s);
-    }
+    int curr = 0;
+    int total = INT_MIN;
+    int n = nums.size();
     
-    int min = sums[0];
-    int max = sums[0];
-    for (int i = 1; i < sums.size(); i++) {
-        if (max < sums[i]) 
-            max = sums[i];
-        
-        if (sums[i] - min > max)
-            max = sums[i] - min;
-        
-        if (sums[i] < min)
-            min = sums[i];
+    for (int i = 0; i < n; i++) {
+        // local maximum is either the current element or the current element plus the previous local maximum
+        curr = max(nums[i], curr + nums[i]);
+        // global maximum is either the current local maximum or the previous global maximum
+        total = max(curr, total);
     }
-    
-    return max;
+
+    return total;
 }
 
 int main(){
