@@ -43,6 +43,14 @@ vector<vector<int>> findSubsequences(vector<int>& nums) {
 }
 
 int main(){
+	vector<int> nums = {4, 6, 7, 7};
+	vector<vector<int>> ans = findSubsequences(nums);
+
+	for (auto x : ans) {
+		for (auto y : x)
+			cout << y << " ";
+		cout << endl;
+	}
 
 	return 0;
 }
