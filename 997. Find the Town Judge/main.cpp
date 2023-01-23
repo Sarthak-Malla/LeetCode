@@ -2,40 +2,22 @@
 using namespace std;
 
 int findJudge(int n, vector<vector<int>>& trust) {
-	if (n < 2)
-		return n;
-	
-	vector<vector<int>> adj(n+1);
-	int len = trust.size();
-	// making an adj list
-	for (auto elem : trust)
-		adj[elem[0]].push_back(elem[1]);
+	// we know that the judge is trusted by everyone and trusts no one
+	// this means that the judge will have n-1 incoming edges and 0 outgoing edges
+	vector<int> incoming(n+1, 0);
+	vector<int> outgoing(n+1, 0);
 
-	vector<int> vec;
-	int empty_count = 0;
-
-	// finding the first non-empty vector
-	for (int i = 1; i < n+1; i++) {
-		if (!adj[i].empty()) {
-			vec = adj[i];
-			break;
-		}
+	for (auto x : trust) {
+		incoming[x[1]]++;
+		outgoing[x[0]]++;
 	}
-	
-	// checking if there is more than one empty vector
-	for (int i = 1; i < n+1; i++)
-		if (adj[i].empty())
-			empty_count++;
 
-	// if there is more than one empty vector, return -1
-	if (empty_count > 1)
-		return -1;
+	// searching for the judge such that it has n-1 incoming edges and 0 outgoing edges
+	for (int i = 1; i < n+1; i++) 
+		if (incoming[i] == n-1 && outgoing[i] == 0)
+			return i;
 
-	// checking if the first non-empty vector has the judge
-	for (int i = 0; i < vec.size(); i++)
-		if (adj[vec[i]].empty())
-			return vec[i];
-
+	// if no such judge exists
 	return -1;
 }
 
