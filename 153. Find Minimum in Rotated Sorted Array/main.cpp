@@ -3,17 +3,22 @@
 using namespace std;
 
 int binarySearch(vector<int>& nums, int left, int right) {
-    int mid = (right - left)/2 + left;
-    int curr_min = min(nums[left], nums[right]);
-    if (left == right || abs(left - right) == 1)
-        return curr_min;
-
-    if (nums[left] < nums[mid])
-        return min(nums[left], binarySearch(nums, mid, right));
-    else if (nums[mid] < nums[left])
-        return min(nums[mid], binarySearch(nums, left, mid));
+    // base case
+    if (nums[left] < nums[right])
+        return nums[left];
     
-    return nums[mid];
+    // getting the middle
+    int mid = (left + right)/2;
+
+    // this only happens when we are down to 2 elements
+    if (mid == left)
+        return min(nums[left], nums[right]); // the smaller one is the answer
+    
+    // condition of the minimum to be on the left of mid
+    if (nums[mid] < nums[right] || nums[mid] < nums[left]) 
+        return binarySearch(nums, left, mid);
+
+    return binarySearch(nums, mid, right);
 }
 
 int findMin(vector<int>& nums) {
