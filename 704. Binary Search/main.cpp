@@ -1,48 +1,29 @@
-#include<iostream>
-#include<vector>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 int search(vector<int>& nums, int target) {
-    int left = 0, right = nums.size() - 1;
-    int mid;
-    bool found = false;
+	int n = nums.size();
+	int l = 0, r = n - 1;
 
-    if (left == right && target == nums[left])
-        return 0;
+	while (l <= r) {
+		int m = (l+r)/2;
+		if (nums[m] == target) 
+			return m;
+		else if (target < nums[m])
+			r = m-1;
+		else
+			l = m+1;
+	}
 
-    while (right - left > 1) {
-        mid = (right-left)/2 + left;
-        if (target < nums[mid]) {
-            right = mid;
-        } else if (target > nums[mid]) {
-            left = mid;
-        } else {
-            found = true;
-            break;
-        }
-    }
-
-    if (target == nums[left])
-        return left;
-    
-    if (target == nums[right])
-        return right;
-
-    if (!found)
-        return -1;
-
-    return mid;
+	return -1;
 }
 
 int main(){
-    vector<int> nums;
-    nums.push_back(1);
-    // nums.push_back(2);
-    // nums.push_back(3);
-    // nums.push_back(4);
-    // nums.push_back(5);
+	vector<int> nums = {-1,0,3,5,9,12};
+	int target = 9;
 
-    cout<<search(nums, 2)<<endl;
+	cout << search(nums, target) << endl;
 
-    return 0;
+	return 0;
 }
